@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Kode Roblox - Gold Click</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+    h1 {
+      color: #333;
+    }
+    code {
+      background-color: #f4f4f4;
+      display: block;
+      padding: 15px;
+      border-radius: 6px;
+      white-space: pre-wrap;
+      border: 1px solid #ccc;
+      font-family: Consolas, monospace;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Kode Roblox: Click Gold dan Respawn Emas</h1>
+
+  <code>
+local gold = script.Parent
+local clickDetector = gold:FindFirstChild("ClickDetector")
+
+local newGold = game:GetService("ReplicatedStorage"):WaitForChild("Emas")
+
+local function MakeNewGold()
+    clickDetector:Destroy()
+    
+    local num = math.random(5, 10)
+    wait(num)
+    local goldClone = newGold:Clone()
+    goldClone.Parent = workspace
+    goldClone.Position = gold.Position
+    
+    gold:Destroy()
+end
+
+clickDetector.MouseClick:Connect(function(plr)
+    local playerStats = plr:FindFirstChild("leaderstats")
+    -- Mendapatkan Gold dan Item
+    local playerEmas = playerStats:FindFirstChild("Emas")
+    
+    playerEmas.Value = playerEmas.Value + 1
+    
+    gold.Anchored = true
+    gold.Transparency = 1
+    gold.CanCollide = false
+    
+    MakeNewGold()
+end)
+  </code>
+
+</body>
+</html>
